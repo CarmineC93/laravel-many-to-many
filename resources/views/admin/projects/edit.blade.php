@@ -28,7 +28,7 @@
                             <div class="form-check">
                                 <input type="checkbox" name="technologies[]" id="technology-{{ $technology->id }}"
                                     {{-- se il checked è true (quindi se nel project aperto con edit è contenuta una technolgy) il checked avrà il value originale --}} class="form-check-input" value="{{ $technology->id }}"
-                                    @checked($post->technologies->contains($technology))>
+                                    @checked($project->technologies->contains($technology))>
                                 <label for="technology-{{ $technology->id }}"
                                     class="form-check-label">{{ $technology->name }}</label>
                             </div>

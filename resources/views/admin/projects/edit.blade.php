@@ -22,6 +22,19 @@
                         <textarea name="description" id="description" rows="10" class="form-control">{{ old('content', $project->description) }}</textarea>
                     </div>
 
+                    <div class="form-group mb-3">
+                        <h4>technologies</h4>
+                        @foreach ($technologies as $technology)
+                            <div class="form-check">
+                                <input type="checkbox" name="technologies[]" id="technology-{{ $technology->id }}"
+                                    {{-- se il checked è true (quindi se nel project aperto con edit è contenuta una technolgy) il checked avrà il value originale --}} class="form-check-input" value="{{ $technology->id }}"
+                                    @checked($post->technologies->contains($technology))>
+                                <label for="technology-{{ $technology->id }}"
+                                    class="form-check-label">{{ $technology->name }}</label>
+                            </div>
+                        @endforeach
+                    </div>
+
                     <div class="form-group mt-3">
                         <label for="type">Tipo</label>
                         <select name="type_id" id="type" class="form-select">

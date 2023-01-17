@@ -93,7 +93,8 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         $types = Type::all();
-        return view('admin.projects.edit', compact('project', 'types'));
+        $technologies = Technology::all();
+        return view('admin.projects.edit', compact('project', 'types', 'technologies'));
     }
 
     /**
@@ -119,7 +120,16 @@ class ProjectController extends Controller
 
         $project->update($form_data);
 
-        // i doppi appici per il tempalte literal
+        //se ci sono delle technologie nel progetto d modificare, 
+        if ($request->has('technologies')) {
+            // verranno sincronizzate a ciò che viene inviato all'update 
+            $project->technologies()->sync($request->technologies);
+        } else {
+            //altrimenti se non c'era già nessuna tecnologia nel file da modificare, verrà mandato un array vuoto 
+            $project->technologies()->sync([]);
+        }
+
+        // i doppi apici per il template literal
         return redirect()->route('admin.projects.index')->with('message', "Hai aggiornato con successo $project->title");
     }
 

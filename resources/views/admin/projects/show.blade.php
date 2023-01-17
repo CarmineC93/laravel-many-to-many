@@ -8,6 +8,15 @@
         <div class="d-flex justify-content-between mt-3">
             <p>{{ $project->slug }}</p>
         </div>
+
+        <div class="technologies">
+            @forelse ($project->technologies as $technology)
+                <span>#{{ $technology->name }}</span>
+            @empty
+                <span>Nessuna tecnologia</span>
+            @endforelse
+        </div>
+
         <p class="mt-3">{{ $project->description }}</p>
         {{-- mettere o null safe operator o terziario che controlli che ci sia il tipo per quel progetto --}}
         <p style="color: red"> {{ $project->type?->name }}</p>

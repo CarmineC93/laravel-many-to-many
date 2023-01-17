@@ -28,7 +28,8 @@ class StoreProjectRequest extends FormRequest
             // indichiamo quali regole devono essere validate oppure 'title' =>'required|max:50|unique:projects'
             'title' => ['required', 'max:150', 'unique:projects'],
             'cover_image' => ['nullable', 'image', 'max:512'],
-            'description' => ['nullable']
+            'description' => ['nullable'],
+            'technologies' => ['exist:technologies,id']
         ];
     }
 

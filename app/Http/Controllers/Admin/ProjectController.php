@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use App\Models\Technology;
 use App\Models\Type;
 use Illuminate\Support\Facades\Storage;
 use PhpParser\Node\Stmt\Return_;
@@ -32,7 +33,8 @@ class ProjectController extends Controller
     public function create()
     {
         $types = Type::all();
-        return view('admin.projects.create', compact('types'));
+        $technologies = Technology::all();
+        return view('admin.projects.create', compact('types', 'technologies'));
     }
 
     /**
@@ -57,11 +59,16 @@ class ProjectController extends Controller
         }
 
 
-        // $post = new Project();
-        // $post->fill($form_data);
-        // $post->save();
-        // alternativa a fill()
-        $post = Project::create($form_data);
+        // $project = new Project();
+        // $project->fill($form_data);
+        // $project->save();
+        // Alternativa a fill() ---->
+        $project = Project::create($form_data);
+
+        // prima salviamo $project e poi se ci sono technologies, le mettiamo nella tabella ponte con attach()
+        if ($request->has('technologies')) {
+            $project->technologies()->attach($request->technologies);
+        }
 
         return redirect()->route('admin.projects.index')->with('message', 'Il tuo nuovo progetto è stato creato');
     }

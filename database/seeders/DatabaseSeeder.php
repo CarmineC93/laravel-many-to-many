@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call([
+            //le seed vanno mandate in ordine in base a chi contiene chi
             ProjectSeeder::class,
             TypesTableSeeder::class,
             TechnologySeeder::class,

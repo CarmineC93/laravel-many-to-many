@@ -65,7 +65,7 @@ class ProjectController extends Controller
         // Alternativa a fill() ---->
         $project = Project::create($form_data);
 
-        // prima salviamo $project e poi se ci sono technologies, le mettiamo nella tabella ponte con attach()
+        // prima salviamo $project ↑ (altrimenti non avremmo cosa relazionare) e poi, se ci sono technologies, le mettiamo nella tabella ponte con attach()
         if ($request->has('technologies')) {
             $project->technologies()->attach($request->technologies);
         }

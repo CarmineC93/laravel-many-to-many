@@ -22,7 +22,8 @@ return new class extends Migration
             $table->unsignedBigInteger('technology_id');
             $table->foreign('technology_id')->references('id')->on('technologies')->cascadeOnDelete();
 
-            // primary key che è l'insieme delle due foreign keys
+            // primary key che è l'insieme delle due foreign keys 
+            // è importante inserirlo perchè ci permette di non avere duplicazioni della stessa coppia
             $table->primary(['project_id', 'technology_id']);
         });
     }
